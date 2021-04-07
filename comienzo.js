@@ -1,26 +1,37 @@
-const texto_entrada = document.getElementById('texto-entrada');
+//const div_resultados = document.querySelector('#palabras')
+//const div_resultados_letras = document.querySelector('#letras')
+const texto = document.querySelector("#texto-entrada").innerText
+const palabras = texto.split(' ').map(palabra => limpiarTexto(palabra))
+const letras = palabras.join('').split('')
+const resultados_palabras = {} 
+const resultados_letras = {}
 
-const texto = texto_entrada.innerText;
-
-const palabras = texto.split(' '); 
-
-const resultados = {}; 
-
-palabras.forEach(palabra => {
-    
-    if (palabra in resultados) {
-      resultados[palabra] = resultados[palabra] + 1;
+function revision(arr, obj) {
+  arr.forEach(txt => {
+    obj[txt] = txt in obj ? obj[txt] + 1 : 1
+    /* if (txt in obj) {
+      obj[txt] = obj[txt] + 1
     } else {
-      resultados[palabra] = 1;
-    }
+      obj[txt] = 1
+    } */
   });
-  
-  const div_resultados = document.querySelector('#resultados');
+}
 
-Object.keys(resultados).forEach(resultado => {
-    const resultadito = document.createElement('p');
-    resultadito.innerText = resultado + ' ' + resultados[resultado];
-    div_resultados.appendChild(resultadito);
-})
+function limpiarTexto(txt) {
+  return txt.replace(',', '').replace('.', '').toLowerCase()
+}
 
-  console.log(resultados);
+function imprimir(obj, lugar){
+  //Object.keys extraer llaves
+  Object.keys(obj).forEach(txt => {
+    const li = document.createElement('li')
+    li.innerText = txt + ' ' + obj[txt]
+    document.querySelector(`#${lugar}`).appendChild(li)
+  })
+}
+
+revision(palabras, resultados_palabras)
+imprimir(resultados_palabras, 'palabras')
+
+revision(letras, resultados_letras)
+imprimir(resultados_letras, 'letras')
