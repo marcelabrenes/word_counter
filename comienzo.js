@@ -1,3 +1,5 @@
+document.body.style.backgroundColor = '#eeccff'
+
 //const div_resultados = document.querySelector('#palabras')
 //const div_resultados_letras = document.querySelector('#letras')
 const texto = document.querySelector("#texto-entrada").innerText
